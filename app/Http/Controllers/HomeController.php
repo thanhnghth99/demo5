@@ -8,7 +8,7 @@ use App\Models\User;
 
 class HomeController extends Controller
 {
-    public function redirect()
+    public function index()
     {
         if(Auth::id())
         {
@@ -25,7 +25,7 @@ class HomeController extends Controller
 
         else
         {
-            return redirect()->back();
+            return index()->back();
         }
     }
 }
