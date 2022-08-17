@@ -40,7 +40,7 @@
                     </a>
                     <button class="hover:shadow-form rounded-md bg-[red] py-3 px-8 text-base font-semibold text-white outline-none text-right"
                         role="button" style="float: right">
-                        Save
+                        Create
                     </button>
                 </div>
             </form>

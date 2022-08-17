@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Tag;
 
 class TagController extends Controller
@@ -10,8 +11,7 @@ class TagController extends Controller
     public function index(Tag $tags)
     {
         $tags = $tags->latest()->paginate(5);
-        return view('admin.tag.tag', compact('tags'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('admin.tag.index', compact('tags'));
     }
 
     public function create(Tag $tag)

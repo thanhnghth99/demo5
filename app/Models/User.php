@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Role;
 
 class User extends Authenticatable
 {
@@ -17,6 +18,9 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+
+    const USER_ADMIN = 1;
+    const USER_ORTHER = 0;
 
     /**
      * The attributes that are mass assignable.
@@ -60,4 +64,23 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function roles()
+    {
+        return $this->morphToMany(Role::class, 'roleable');
+    }
+
+    public function hasPermission($permissionName)
+    {
+        $permissions = $this->roles()
+            ->with(['permissions'])
+            ->get()
+            ->map(function($role){
+                return $role->permissions->pluck('name')->all();
+            })
+            ->collapse()
+            ->toArray();
+
+        return in_array($permissionName, $permissions);
+    }
 }

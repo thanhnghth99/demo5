@@ -3,13 +3,13 @@
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 use Monolog\Processor\HostnameProcessor;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\TagController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
+
 
 
 /*
@@ -27,12 +27,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/home', [HomeController::class, 'redirect']);
-// Route::get('/categories', [CategoriesController::class, 'redirect']);
-// Route::get('/categories', [CategoriesController::class, 'redirect']);
-// Route::get('/categories', [CategoriesController::class, 'redirect']);
-
-Route::resource('home', HomeController::class);
 Route::resource('permission', PermissionController::class);
 Route::resource('role', RoleController::class);
 Route::resource('user', UserController::class);

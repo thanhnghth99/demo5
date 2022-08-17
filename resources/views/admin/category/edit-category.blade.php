@@ -28,14 +28,33 @@
                     />
                 </div>
                 
-                <div class="flex">
+                <div class="mb-5">
                     <div>
                         <label
                             for="name"
                             class="mb-3 block text-xl font-medium text-[#07074D]"
                             >
-                            Category tags
+                            Tags
                         </label>
+                        <div>
+                            @foreach($tags as $tag)
+                            <div class="mt-2">
+                                <input
+                                    <?php
+                                    foreach ($dataTags as $dataTag)
+                                    {
+                                        if ($tag->id == $dataTag->id)
+                                            echo "checked";
+                                    }
+                                    ?>
+                                    type="checkbox" class="rounded-md border border-[#e0e0e0] bg-white px-2 py-2" id="tag" name="tag[]" value="{{$tag->id}}"/>
+                                <label for="tag" class="mb-3 text-xm font-medium text-[#07074D]">{{ $tag->name }}</label><br>
+                            </div>
+                            @endforeach
+                        </div>
+                        <div class="mt-2">
+                            <a href="{{ route('tag.create') }}" class="w-full rounded-md border border-[#07074D] bg-white px-1 mb-3 text-xm font-medium text-[#07074D]">+ Add tag</a>
+                        </div>
                     </div>
                 </div>
                 <div class="mb-3">

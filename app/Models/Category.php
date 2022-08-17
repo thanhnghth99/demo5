@@ -12,5 +12,8 @@ class Category extends Model
         'name',
         'status',
     ];
-
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
 }

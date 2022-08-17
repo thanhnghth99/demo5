@@ -71,24 +71,24 @@
                     />
                     <p class="w-full text-base text-[#6B7280]" id="image">SVG, PNG, JPG or GIF</p>
                 </div> 
-                <div class="flex">
+                <div class="mb-5">
                     <div>
                         <label
                             for="name"
                             class="mb-3 block text-xl font-medium text-[#07074D]"
                             >
-                            Article tags
+                            Tags
                         </label>
-                        <div style="margin: 10px 20px 20px 10px">
+                        <div>
                             @foreach($tags as $tag)
-                            <div style="margin: 10px 20px 10px 10px">
-                                <input type="checkbox" class="rounded-md border border-[#e0e0e0] bg-white px-3 py-3" id="tag" name="tag[]" value="{{$tag->id}}"/>
-                                <label for="tag" class="mb-3 text-xl font-medium text-[#07074D]">{{ $tag->name }}</label><br>
+                            <div class="mt-2">
+                                <input type="checkbox" class="rounded-md border border-[#e0e0e0] bg-white px-2 py-2" id="tag" name="tag[]" value="{{$tag->id}}"/>
+                                <label for="tag" class="mb-3 text-xm font-medium text-[#07074D]">{{ $tag->name }}</label><br>
                             </div>
                             @endforeach
                         </div>
-                        <div style="margin: 10px 20px 20px 10px">
-                            <a href="{{ route('tag.create') }}" class="w-full rounded-md border border-[#07074D] bg-white px-1 mb-3 text-xl font-medium text-[#07074D]">+ Add tag</a>
+                        <div class="mt-2">
+                            <a href="{{ route('tag.create') }}" class="w-full rounded-md border border-[#07074D] bg-white px-1 mb-3 text-xm font-medium text-[#07074D]">+ Add tag</a>
                         </div>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
                     </a>
                     <button class="hover:shadow-form rounded-md bg-[red] py-3 px-8 text-base font-semibold text-white outline-none text-right"
                         role="button" style="float: right">
-                        Save
+                        Create
                     </button>
                 </div>
             </form>

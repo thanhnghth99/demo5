@@ -26,24 +26,25 @@
                     />
                 </div>
                 
-                <div class="flex">
+                <div class="mb-5">
                     <div>
                         <label
                             for="name"
                             class="mb-3 block text-xl font-medium text-[#07074D]"
                             >
-                            Category tags
+                            Tags
                         </label>
-
-                        <!-- @foreach($tags as $tag)
-                        <div class="form-check">
-                            <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                                type="checkbox" value="" id="flexCheckDefault" name="tag[]">
-                            <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
-                                {{$tag->name}}
-                            </label>
+                        <div>
+                            @foreach($tags as $tag)
+                            <div class="mt-2">
+                                <input type="checkbox" class="rounded-md border border-[#e0e0e0] bg-white px-2 py-2" id="tag" name="tag[]" value="{{$tag->id}}"/>
+                                <label for="tag" class="mb-3 text-xm font-medium text-[#07074D]">{{ $tag->name }}</label><br>
+                            </div>
+                            @endforeach
                         </div>
-                        @endforeach -->
+                        <div class="mt-2">
+                            <a href="{{ route('tag.create') }}" class="w-full rounded-md border border-[#07074D] bg-white px-1 mb-3 text-xm font-medium text-[#07074D]">+ Add tag</a>
+                        </div>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -61,7 +62,7 @@
                     </a>
                     <button class="hover:shadow-form rounded-md bg-[red] py-3 px-8 text-base font-semibold text-white outline-none text-right"
                         role="button" style="float: right">
-                        Save
+                        Create
                     </button>
                 </div>
             </form>

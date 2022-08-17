@@ -27,7 +27,35 @@
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     />
                 </div>
-                
+                <div class="flex">
+                    <div>
+                        <label
+                            for="name"
+                            class="mb-3 block text-xl font-medium text-[#07074D]"
+                            >
+                            Permissions
+                        </label>
+                        <div>
+                            @foreach($permissions as $permission)
+                            <div class="mt-2">
+                                <input
+                                    <?php
+                                    foreach ($dataPermissions as $dataPermission)
+                                    {
+                                        if ($permission->id == $dataPermission->id)
+                                            echo "checked";
+                                    }
+                                    ?>
+                                type="checkbox" class="rounded-md border border-[#e0e0e0] bg-white px-2 py-2" id="permission" name="permission[]" value="{{$permission->id}}"/>
+                                <label for="permission" class="mb-3 text-xm font-medium text-[#07074D]">{{ $permission->name }}</label><br>
+                            </div>
+                            @endforeach
+                        </div>
+                        <div class="mt-2 mb-2">
+                            <a href="{{ route('permission.create') }}" class="w-full rounded-md border border-[#07074D] bg-white px-1 mb-3 text-xm font-medium text-[#07074D]">+ Add permission</a>
+                        </div>
+                    </div>
+                </div>                 
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="mb-3 block text-xl font-medium text-[#07074D]">Role status</label>
                     <select name="status" id="cars" style="height: 50px" value="{{ $roles->status }}"

@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('taggables', function (Blueprint $table) {
+        Schema::create('roleables', function (Blueprint $table) {
             $table->id();
-            $table->integer('tag_id');
-            $table->morphs('taggable');
+            $table->integer('role_id');
+            $table->morphs('roleable');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('taggables');
+        Schema::dropIfExists('roleables');
     }
 };

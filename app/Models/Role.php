@@ -12,4 +12,11 @@ class Role extends Model
         'name',
         'status',
     ];
+
+    public function permissions()
+    {
+        return $this->morphToMany(Permission::class, 'permissionable');
+    }
+
+    
 }

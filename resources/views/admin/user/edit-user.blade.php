@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create User') }}
+            {{ __('Edit User') }}
         </h2>
     </x-slot>
     
@@ -9,65 +9,55 @@
         
         <x-jet-validation-errors class="mb-4" />
 
-        <form method="POST" action="{{ route('user.store') }}">
+        <form method="POST" action="{{ route('user.update', $users->id) }}">
             @csrf
-
+            @method('PUT')
             <div>
                 <x-jet-label for="name" value="{{ __('Name') }}" />
-                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" value="{{ $users->name }}" required autofocus autocomplete="name" />
             </div>
 
             <div class="mt-4">
                 <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{ $users->email }}" required />
             </div>
 
             <div>
                 <x-jet-label for="phone" value="{{ __('Phone') }}" />
-                <x-jet-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required autofocus autocomplete="phone" />
+                <x-jet-input id="phone" class="block mt-1 w-full" type="text" name="phone" value="{{ $users->phone }}" required autofocus autocomplete="phone" />
             </div>
 
             <div>
                 <x-jet-label for="address" value="{{ __('Address') }}" />
-                <x-jet-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required autofocus autocomplete="address" />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
-            
-            <div class="mb-4">
-                <x-jet-label for="status" value="{{ __('Status') }}" style="margin: 15px 0px 0px 0px" />
-                <select name="status" id="status" style="margin: 5px 0px 0px 0px" 
-                        class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
-                    <option value="1">Enable</option>
-                    <option value="0">Disable</option>
-                </select>
+                <x-jet-input id="address" class="block mt-1 w-full" type="text" name="address" value="{{ $users->address }}" required autofocus autocomplete="address" />
             </div>
 
             <div class="mt-4">
                 <div>
                     <x-jet-label for="name" value="{{ __('Roles') }}" />
                     
-                    @foreach($roles as $role)
-                    <div class="mt-2">
-                        <x-jet-input type="checkbox" class="rounded-md border border-[#e0e0e0] bg-white px-1 py-1" id="role" name="role[]" value="{{$role->id}}"/>
-                        <label for="role" class="mb-3 text-xm font-medium text-[#07074D]">{{ $role->name }}</label><br>
+                    <div>
+                        @foreach($roles as $role)
+                        <div class="mt-2">
+                            <input                                 
+                                <?php
+                                foreach ($dataRoles as $dataRole)
+                                {
+                                    if ($role->id == $dataRole->id)
+                                        echo "checked";
+                                }
+                                ?>
+                                type="checkbox" class="rounded-md border border-[#e0e0e0] bg-white px-1 py-1" id="role" name="role[]" value="{{$role->id}}"/>
+                            <label for="role" class="mb-3 text-xm font-medium text-[#07074D]">{{ $role->name }}</label><br>
+                        </div>
+                        @endforeach                       
                     </div>
-                    @endforeach
 
                     <div class="mt-2">
                         <a href="{{ route('role.create') }}" class="w-full rounded-md border border-[#07074D] bg-white px-1 mb-3 text-xm font-medium text-[#07074D]">+ Add role</a>
                     </div>
                 </div>
             </div>
-
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">
                     <x-jet-label for="terms">
@@ -92,7 +82,7 @@
                 </a>
                 <button class="hover:shadow-form rounded-md bg-[red] py-3 px-8 text-base font-semibold text-white outline-none text-right"
                     role="button" style="float: right">
-                    Create
+                    Edit
                 </button>
             </div>
         </form>

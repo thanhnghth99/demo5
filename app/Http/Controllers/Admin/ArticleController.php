@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Tag;
 
@@ -11,8 +12,7 @@ class ArticleController extends Controller
     public function index(Article $articles)
     {
         $articles = $articles->latest()->paginate(5);
-        return view('admin.article.article', compact('articles'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('admin.article.index', compact('articles'));
     }
 
     public function create(Tag $tag, Article $article)
@@ -78,9 +78,12 @@ class ArticleController extends Controller
         $fileName = $this->handleFileUpload($request);
         $articles = $article->find($article->id);
         
-        if(empty($fileName)){
+        if(empty($fileName))
+        {
             $data['image'] = $articles->image;
-        } else {
+        } 
+        else 
+        {
             $data['image'] = $fileName;
         }
 

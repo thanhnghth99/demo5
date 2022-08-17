@@ -25,7 +25,7 @@
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     />
                 </div>
-                <div class="flex">
+                <div class="mb-5">
                     <div>
                         <label
                             for="name"
@@ -33,20 +33,20 @@
                             >
                             Permissions
                         </label>
-                        <div style="margin: 10px 20px 20px 10px">
+                        <div>
                             @foreach($permissions as $permission)
-                            <div style="margin: 10px 20px 10px 10px">
-                                <input type="checkbox" class="rounded-md border border-[#e0e0e0] bg-white px-3 py-3" id="permission" name="permission[]" value="{{$permission->id}}"/>
-                                <label for="permission" class="mb-3 text-xl font-medium text-[#07074D]">{{ $permission->name }}</label><br>
+                            <div class="mt-2">
+                                <input type="checkbox" class="rounded-md border border-[#e0e0e0] bg-white px-2 py-2" id="permission" name="permission[]" value="{{$permission->id}}"/>
+                                <label for="permission" class="mb-3 text-xm font-medium text-[#07074D]">{{ $permission->name }}</label><br>
                             </div>
                             @endforeach
                         </div>
-                        <div style="margin: 10px 20px 20px 10px">
-                            <a href="{{ route('permission.create') }}" class="w-full rounded-md border border-[#07074D] bg-white px-1 mb-3 text-xl font-medium text-[#07074D]">+ Add permission</a>
+                        <div class="mt-2 mb-2">
+                            <a href="{{ route('permission.create') }}" class="w-full rounded-md border border-[#07074D] bg-white px-1 mb-3 text-xm font-medium text-[#07074D]">+ Add permission</a>
                         </div>
                     </div>
                 </div>
-                <div class="mb-3">
+                <div class="mb-5">
                     <label for="exampleInputEmail1" class="mb-3 block text-xl font-medium text-[#07074D]">Role status</label>
                     <select name="status" id="cars" style="height: 50px"
                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
@@ -61,7 +61,7 @@
                     </a>
                     <button class="hover:shadow-form rounded-md bg-[red] py-3 px-8 text-base font-semibold text-white outline-none text-right"
                         role="button" style="float: right">
-                        Save
+                        Create
                     </button>
                 </div>
             </form>
