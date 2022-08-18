@@ -16,19 +16,19 @@ class TagController extends Controller
 
     public function create(Tag $tag)
     {
-        $tags = $tag->all();
-        return view('admin.tag.create-tag', ['tags' => $tags]);
+        $tag->all();
+        return view('admin.tag.create-tag');
     }
 
-    public function store(Request $request, Tag $tag)
+    public function store(Request $request)
     {
         date_default_timezone_set('asia/ho_chi_minh');
         $data = $request->validate([
             'name' => 'required',
             'status' => 'required',
-            // 'tag' => 'nullable|array'
         ]);
-        $tag->create($data);
+
+        Tag::create($data);
         return redirect('/tag')
             ->with('success', 'Successfully created.');
     }
@@ -45,17 +45,16 @@ class TagController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'status' => 'required',
-            // 'tag' => 'nullable|array'
         ]);
-        $tags = $tag->find($tag->id);
-        $tags->fill($data)->save();
+
+        $tag->fill($data)->save();
         return redirect('/tag')
             ->with('success', 'Successfully updated.');
     }
 
     public function destroy(Tag $tag)
     {
-        $tags = $tag->delete();
+        $tag->delete();
         return redirect('/tag')
             ->with('success', 'Successfully deleted.');
     } 

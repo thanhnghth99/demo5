@@ -40,5 +40,7 @@
         @stack('modals')
 
         @livewireScripts
+
+        {{ $scripts ?? null }}
     </body>
 </html>

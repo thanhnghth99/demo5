@@ -14,6 +14,11 @@
             </div>
 
             <div class="table w-full p-2">
+                <div>
+                    @include('message')
+                    @yield('content')
+                </div>
+
                 <table class="w-full border">
                     <thead>
                         <tr class="bg-gray-200 border-b">
@@ -96,8 +101,12 @@
                         <tr class="bg-gray-20 text-center border-b text-base text-gray-600">
                             <td class="p-2 border-r">{{$article->id}}</td>
                             <td class="p-2 border-r">{{$article->name}}</td>
-                            <td class="p-2 border-r">{{$article->author}}</td>
-                            <td class="p-2 border-r">{{$article->content}}</td>
+                            <td class="p-2 border-r">{{$article->authorInfo->name}}</td>
+                            <td class="p-2 border-r">
+                                <?php
+                                    echo $article->content;
+                                ?>
+                            </td>
                             <td class="p-2 border-r">
                                 <img src="{{ asset('images/'.$article->image) }}" width=100px/>
                             </td>
@@ -132,11 +141,6 @@
                 </table>
                 <div class="mt-5 ">
                     {{ $articles->links('vendor.pagination.tailwind') }}
-                </div>
-
-                <div>
-                    @include('message')
-                    @yield('content')
                 </div>
             </div>
         </div>

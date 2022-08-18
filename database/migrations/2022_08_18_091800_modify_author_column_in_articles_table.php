@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -13,14 +14,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('author');
-            $table->string('content');
-            $table->string('image');
-            $table->boolean('status');
-            $table->timestamps();
+        DB::table('articles')->update(['author' => 1]);
+        Schema::table('articles', function (Blueprint $table) {
+            $table->bigInteger('author')->change();
         });
     }
 
@@ -31,6 +27,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('articles');
+        Schema::table('articles', function (Blueprint $table) {
+            $table->string('author')->change();
+        });
     }
 };

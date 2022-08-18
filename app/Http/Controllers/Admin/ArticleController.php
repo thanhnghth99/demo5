@@ -5,21 +5,23 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\Category;
 use App\Models\Tag;
 
 class ArticleController extends Controller
 {
-    public function index(Article $articles)
+    public function index(Article $article)
     {
-        $articles = $articles->latest()->paginate(5);
+        $articles = $article->with(['authorInfo'])->latest()->paginate(5);
         return view('admin.article.index', compact('articles'));
     }
 
-    public function create(Tag $tag, Article $article)
+    public function create(Tag $tag, Article $article, Category $category)
     {
-        $articles = $article->all();
+        $article->all();
         $tags = $tag->all();
-        return view('admin.article.create-article', ['articles' => $articles, 'tags' => $tags]);
+        $categories = $category->all();
+        return view('admin.article.create-article', ['tags' => $tags, 'categories' => $categories]);
     }
 
     public function store(Request $request, Article $article)
@@ -27,18 +29,20 @@ class ArticleController extends Controller
         date_default_timezone_set('asia/ho_chi_minh');
         $data = $request->validate([
             'name' => 'required',
-            'author' => 'required',
             'content' => 'required',
             'image' => 'required',
             'status' => 'required',
-            'tag' => 'nullable|array'
+            'tag' => 'nullable|array',
+            'category' => 'nullable|array',
         ]);
 
         $fileName = $this->handleFileUpload($request);
         $data['image'] = $fileName;
+        $data['author'] = auth()->id();
 
-        $dataAdd = $article->create($data);
-        $dataAdd->tags()->sync($data['tag']);
+        $article = Article::create($data);
+        $article->tags()->sync($data['tag']);
+        $article->categories()->sync($data['category']);
         
         return redirect('/article')
             ->with('success', 'Successfully created.');
@@ -55,13 +59,16 @@ class ArticleController extends Controller
         return '';
     }
 
-    public function edit(Article $article, Tag $tag)
+    public function edit(Article $article, Tag $tag, Category $category)
     {
         $articles = $article->find($article->id);
         $tags = $tag->all();
+        $categories = $category->all();
         $dataTags = $articles->tags()->get();
+        $dataCategories = $articles->categories()->get();
 
-        return view('admin.article.edit-article', ['articles' => $articles, 'tags' => $tags, 'dataTags' => $dataTags]);
+        return view('admin.article.edit-article', ['articles' => $articles, 'tags' => $tags, 'dataTags' => $dataTags, 
+                                                   'categories' => $categories, 'dataCategories' => $dataCategories]);
     }
 
     public function update(Request $request, Article $article)
@@ -69,27 +76,29 @@ class ArticleController extends Controller
         date_default_timezone_set('asia/ho_chi_minh');
         $data = $request->validate([
             'name' => 'required',
-            'author' => 'required',
             'content' => 'required',
             'image' => ['nullable', 'file'],
             'status' => 'required',
             'tag' => 'nullable|array',
+            'category' => 'nullable|array',
         ]);
 
         $fileName = $this->handleFileUpload($request);
-        $articles = $article->find($article->id);
         
         if(empty($fileName))
         {
-            $data['image'] = $articles->image;
+            $data['image'] = $article->image;
         } 
         else 
         {
             $data['image'] = $fileName;
         }
 
-        $articles->fill($data)->save();
-        $articles->tags()->sync($data['tag']);
+        $data['author'] = auth()->id();
+        
+        $article->fill($data)->save();
+        $article->tags()->sync($data['tag']);
+        $article->categories()->sync($data['category']);
 
         return redirect('/article')
             ->with('success', 'Successfully updated.');
@@ -97,7 +106,7 @@ class ArticleController extends Controller
 
     public function destroy(Article $article)
     {
-        $articles = $article->delete();
+        $article->delete();
         return redirect('/article')
             ->with('success', 'Successfully deleted.');
     }

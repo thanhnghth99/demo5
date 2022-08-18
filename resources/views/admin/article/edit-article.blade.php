@@ -7,7 +7,7 @@
 
     <!-- component -->
     <div class="flex items-center justify-center p-12">
-        <div class="mx-auto w-full max-w-[550px]">
+        <div class="mx-auto w-full max-w-[1000px]">
             <form action="{{ route('article.update', $articles->id) }}" method="POST" enctype="multipart/form-data">
                 @method('PUT')
                 {{csrf_field()}}
@@ -27,23 +27,6 @@
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     />
                 </div>
-
-                <div class="mb-5">
-                    <label
-                        for="author"
-                        class="mb-3 block text-xl font-medium text-[#07074D]"
-                        >
-                        Author
-                    </label>
-                    <input
-                        type="text"
-                        name="author"
-                        id="author"
-                        placeholder="Author"
-                        value=" {{$articles->author}} "
-                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                    />
-                </div>
                 <div class="mb-5">
                     <label
                         for="content"
@@ -51,13 +34,7 @@
                         >
                         Content
                     </label>
-                    <textarea
-                        type="text"
-                        name="content"
-                        id="content"
-                        placeholder="Content"
-                        value=" {{$articles->content}} "
-                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md h-48">{{$articles->content}}</textarea>
+                    <textarea name="content" id="content">{{ $articles->content }}</textarea>
                 </div>
                 <div class="mb-5">
                     <label
@@ -76,6 +53,35 @@
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] focus:border-[#6A64F1] focus:shadow-md cursor-pointer"
                     />
                     <p class="w-full text-base text-[#6B7280]" id="image">SVG, PNG, JPG or GIF</p>
+                </div>
+                <div class="mb-5">
+                    <div>
+                        <label
+                            for="name"
+                            class="mb-3 block text-xl font-medium text-[#07074D]"
+                            >
+                            Categories
+                        </label>
+                        <div>
+                            @foreach($categories as $category)
+                            <div class="mt-2">
+                                <input
+                                    <?php
+                                    foreach ($dataCategories as $dataCategory)
+                                    {
+                                        if ($category->id == $dataCategory->id)
+                                            echo "checked";
+                                    }
+                                    ?>
+                                    type="checkbox" class="rounded-md border border-[#e0e0e0] bg-white px-2 py-2" id="category" name="category[]" value="{{$category->id}}"/>
+                                <label for="category" class="mb-3 text-xm font-medium text-[#07074D]">{{ $category->name }}</label><br>
+                            </div>
+                            @endforeach
+                        </div>
+                        <div class="mt-2">
+                            <a href="{{ route('category.create') }}" class="w-full rounded-md border border-[#07074D] bg-white px-1 mb-3 text-xm font-medium text-[#07074D]">+ Add category</a>
+                        </div>
+                    </div>
                 </div> 
                 <div class="mb-5">
                     <div>
@@ -138,4 +144,19 @@
             </form>
         </div>
     </div>
+    <x-slot name="scripts">
+        <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#content'), {
+                    // height: '400px'
+                })
+                .then( editor => {
+                    editor.ui.view.editable.element.style.height = '500px';
+                } )
+                .catch(error => {
+                    console.error(error);
+                });
+        </script>
+    </x-slot>
 </x-app-layout>

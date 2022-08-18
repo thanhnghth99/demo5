@@ -29,11 +29,11 @@ class PermissionController extends Controller
     public function create(Permission $permission)
     {
         $this->authorize('can_do', ['permission create']);
-        $permissions = $permission->all();
-        return view('admin.permission.create-permission', ['permissions' => $permissions]);
+        $permission->all();
+        return view('admin.permission.create-permission');
     }
 
-    public function store(Request $request, Permission $permission)
+    public function store(Request $request)
     {
         date_default_timezone_set('asia/ho_chi_minh');
         $data = $request->validate([
@@ -41,7 +41,7 @@ class PermissionController extends Controller
             'status' => 'required',
         ]);
 
-        $permission->create($data);
+        Permission::create($data);
         return redirect('/permission')
             ->with('success', 'Successfully created.');
     }

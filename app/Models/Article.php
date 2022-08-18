@@ -8,12 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     use HasFactory;
+    
+    const STATUS_ENABLE = 1;
+    const STATUS_DISABLE = 0;
+
     protected $fillable = [
         'name',
         'author',
         'content',
         'image',
-        // 'category_id',
         'status',
     ];
 

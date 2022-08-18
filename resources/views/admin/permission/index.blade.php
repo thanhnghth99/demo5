@@ -17,6 +17,11 @@
                 @endif
 
                 <div class="table w-full p-2">
+                    <div>
+                        @include('message')
+                        @yield('content')
+                    </div>
+                    
                     <table class="w-full border">
                         <thead>
                             <tr class="bg-gray-200 border-b">
@@ -56,11 +61,6 @@
                     </table>
                     <div class="mt-5 ">
                         {{ $permissions->links('vendor.pagination.tailwind') }}
-                    </div>
-
-                    <div>
-                        @include('message')
-                        @yield('content')
                     </div>
                 </div>
             </div>

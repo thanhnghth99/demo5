@@ -9,15 +9,15 @@ use App\Models\Tag;
 
 class CategoryController extends Controller
 {
-    public function index(Category $categories)
+    public function index(Category $category)
     {
-        $categories = $categories->latest()->paginate(5);
+        $categories = $category->latest()->paginate(5);
         return view('admin.category.index', compact('categories'));
     }
 
     public function create(Tag $tag, Category $category)
     {
-        $categories = $category->all();
+        $category->all();
         $tags = $tag->all();
         return view('admin.category.create-category', ['tags' => $tags]);
     }
@@ -30,8 +30,8 @@ class CategoryController extends Controller
             'status' => 'required',
             'tag' => 'nullable|array'
         ]);
-        $dataAdd = $category->create($data);
-        $dataAdd->tags()->sync($data['tag']);
+        $category = Category::create($data);
+        $category->tags()->sync($data['tag']);
 
         return redirect('/category')
             ->with('success', 'Successfully created.');
@@ -53,9 +53,9 @@ class CategoryController extends Controller
             'status' => 'required',
             'tag' => 'nullable|array'
         ]);
-        $categories = $category->find($category->id);
-        $categories->fill($data)->save();
-        $categories->tags()->sync($data['tag']);
+        
+        $category->fill($data)->save();
+        $category->tags()->sync($data['tag']);
         return redirect('/category')
             ->with('success', 'Successfully updated.');
     }

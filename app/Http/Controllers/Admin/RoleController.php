@@ -32,7 +32,7 @@ class roleController extends Controller
     public function create(Permission $permission, Role $role)
     {
         $this->authorize('can_do', ['role create']);
-        $roles = $role->all();
+        $role->all();
         $permissions = $permission->all();
         return view('admin.role.create-role', ['permissions' => $permissions]);
     }
@@ -46,8 +46,8 @@ class roleController extends Controller
             'permission' => 'nullable|array',
         ]);
 
-        $dataAdd = $role->create($data);
-        $dataAdd->permissions()->sync($data['permission']);
+        $role = Role::create($data);
+        $role->permissions()->sync($data['permission']);
         return redirect('/role')
             ->with('success', 'Successfully created.');
     }
@@ -71,9 +71,8 @@ class roleController extends Controller
             'permission' => 'nullable|array',
         ]);
 
-        $roles = $role->find($role->id);
-        $roles->fill($data)->save();
-        $roles->permissions()->sync($data['permission']);
+        $role->fill($data)->save();
+        $role->permissions()->sync($data['permission']);
         
         return redirect('/role')
             ->with('success', 'Successfully updated.');
@@ -82,7 +81,7 @@ class roleController extends Controller
     public function destroy(Role $role)
     {
         $this->authorize('can_do', ['role delete']);
-        $roles = $role->delete();
+        $role->delete();
         return redirect('/role')
             ->with('success', 'Successfully deleted.');
     } 

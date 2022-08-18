@@ -33,9 +33,9 @@ class UserController extends Controller
     public function create(Role $role, User $user)
     {
         $this->authorize('can_do', ['user create']);
-        $users = $user->all();
+        $user->all();
         $roles = $role->all();
-        return view('admin.user.create-user', ['users' => $users, 'roles' => $roles]);
+        return view('admin.user.create-user', ['roles' => $roles]);
     }
 
     public function store(Request $request, User $user)
