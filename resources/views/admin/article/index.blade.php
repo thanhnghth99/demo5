@@ -133,6 +133,11 @@
                 <div class="mt-5 ">
                     {{ $articles->links('vendor.pagination.tailwind') }}
                 </div>
+
+                <div>
+                    @include('message')
+                    @yield('content')
+                </div>
             </div>
         </div>
     </div>

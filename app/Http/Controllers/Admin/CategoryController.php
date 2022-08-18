@@ -33,7 +33,8 @@ class CategoryController extends Controller
         $dataAdd = $category->create($data);
         $dataAdd->tags()->sync($data['tag']);
 
-        return redirect('/category');
+        return redirect('/category')
+            ->with('success', 'Successfully created.');
     }
 
     public function edit(Category $category, Tag $tag)
@@ -55,13 +56,15 @@ class CategoryController extends Controller
         $categories = $category->find($category->id);
         $categories->fill($data)->save();
         $categories->tags()->sync($data['tag']);
-        return redirect('/category');
+        return redirect('/category')
+            ->with('success', 'Successfully updated.');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect('/category');
+        return redirect('/category')
+            ->with('success', 'Successfully deleted.');
     } 
     
     public function show()

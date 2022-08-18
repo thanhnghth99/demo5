@@ -42,7 +42,8 @@ class PermissionController extends Controller
         ]);
 
         $permission->create($data);
-        return redirect('/permission');
+        return redirect('/permission')
+            ->with('success', 'Successfully created.');
     }
 
     public function show()

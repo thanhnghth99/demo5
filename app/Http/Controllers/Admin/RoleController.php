@@ -48,7 +48,8 @@ class roleController extends Controller
 
         $dataAdd = $role->create($data);
         $dataAdd->permissions()->sync($data['permission']);
-        return redirect('/role');
+        return redirect('/role')
+            ->with('success', 'Successfully created.');
     }
 
     public function edit(Role $role, Permission $permission)
@@ -74,14 +75,16 @@ class roleController extends Controller
         $roles->fill($data)->save();
         $roles->permissions()->sync($data['permission']);
         
-        return redirect('/role');
+        return redirect('/role')
+            ->with('success', 'Successfully updated.');
     }
 
     public function destroy(Role $role)
     {
         $this->authorize('can_do', ['role delete']);
         $roles = $role->delete();
-        return redirect('/role');
+        return redirect('/role')
+            ->with('success', 'Successfully deleted.');
     } 
     
     public function show()

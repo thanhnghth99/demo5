@@ -57,6 +57,11 @@
                     <div class="mt-5 ">
                         {{ $permissions->links('vendor.pagination.tailwind') }}
                     </div>
+
+                    <div>
+                        @include('message')
+                        @yield('content')
+                    </div>
                 </div>
             </div>
         </div>

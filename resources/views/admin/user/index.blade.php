@@ -92,7 +92,6 @@
 
                     <div>
                         @include('message')
-
                         @yield('content')
                     </div>
                 </div>

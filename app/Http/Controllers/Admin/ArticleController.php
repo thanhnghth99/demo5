@@ -40,7 +40,8 @@ class ArticleController extends Controller
         $dataAdd = $article->create($data);
         $dataAdd->tags()->sync($data['tag']);
         
-        return redirect('/article');
+        return redirect('/article')
+            ->with('success', 'Successfully created.');
     }
 
     public function handleFileUpload(Request $request){
@@ -90,13 +91,15 @@ class ArticleController extends Controller
         $articles->fill($data)->save();
         $articles->tags()->sync($data['tag']);
 
-        return redirect('/article');
+        return redirect('/article')
+            ->with('success', 'Successfully updated.');
     }
 
     public function destroy(Article $article)
     {
         $articles = $article->delete();
-        return redirect('/article');
+        return redirect('/article')
+            ->with('success', 'Successfully deleted.');
     }
 
     public function show()

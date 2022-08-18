@@ -12,4 +12,14 @@ class Tag extends Model
         'name',
         'status',
     ];
+
+    public function articles()
+    {
+        return $this->morphedByMany(Article::class, 'taggable');
+    }
+
+    public function categories()
+    {
+        return $this->morphedByMany(Category::class, 'taggable');
+    }
 }

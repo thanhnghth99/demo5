@@ -29,7 +29,8 @@ class TagController extends Controller
             // 'tag' => 'nullable|array'
         ]);
         $tag->create($data);
-        return redirect('/tag');
+        return redirect('/tag')
+            ->with('success', 'Successfully created.');
     }
 
     public function edit(Tag $tag)
@@ -48,13 +49,15 @@ class TagController extends Controller
         ]);
         $tags = $tag->find($tag->id);
         $tags->fill($data)->save();
-        return redirect('/tag');
+        return redirect('/tag')
+            ->with('success', 'Successfully updated.');
     }
 
     public function destroy(Tag $tag)
     {
         $tags = $tag->delete();
-        return redirect('/tag');
+        return redirect('/tag')
+            ->with('success', 'Successfully deleted.');
     } 
     
     public function show()

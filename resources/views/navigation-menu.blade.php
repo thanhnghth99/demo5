@@ -16,6 +16,21 @@
                         {{ __('Home') }}
                     </x-jet-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('article.index') }}" :active="request()->routeIs('article.index')">
+                        {{ __('Articles') }}
+                    </x-jet-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('category.index') }}" :active="request()->routeIs('category.index')">
+                        {{ __('Categories') }}
+                    </x-jet-nav-link>
+                </div> 
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('tag.index') }}" :active="request()->routeIs('tag.index')">
+                        {{ __('Tags') }}
+                    </x-jet-nav-link>
+                </div>  
                 @if(Gate::check('can_do', ['permission read']))
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link href="{{ route('permission.index') }}" :active="request()->routeIs('permission.index')">
@@ -37,21 +52,6 @@
                         </x-jet-nav-link>
                     </div>
                 @endif  
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('category.index') }}" :active="request()->routeIs('category.index')">
-                        {{ __('Categories') }}
-                    </x-jet-nav-link>
-                </div> 
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('article.index') }}" :active="request()->routeIs('article.index')">
-                        {{ __('Articles') }}
-                    </x-jet-nav-link>
-                </div>                                 
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('tag.index') }}" :active="request()->routeIs('tag.index')">
-                        {{ __('Tags') }}
-                    </x-jet-nav-link>
-                </div> 
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">

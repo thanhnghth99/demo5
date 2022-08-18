@@ -64,7 +64,7 @@ class UserController extends Controller
         $user->roles()->sync($data['role']);
 
         return redirect('/user')
-            ->with('success', 'Successfully created');
+            ->with('success', 'Successfully created.');
     }
 
     public function edit(User $user, Role $role)
@@ -91,14 +91,16 @@ class UserController extends Controller
         $user->fill($data)->save();
         $user->roles()->sync($data['role']);
 
-        return redirect('/user');
+        return redirect('/user')
+            ->with('success', 'Successfully updated.');
     }
 
     public function destroy(User $user)
     {
         $this->authorize('can_do', ['user delete']);
         $user->delete();
-        return redirect('/user');
+        return redirect('/user')
+            ->with('success', 'Successfully deleted.');
     } 
     
     public function show()

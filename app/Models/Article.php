@@ -16,8 +16,19 @@ class Article extends Model
         // 'category_id',
         'status',
     ];
+
     public function tags()
     {
         return $this->morphToMany(Tag::class, 'taggable');
+    }
+
+    public function categories()
+    {
+        return $this->morphToMany(Category::class, 'categoryable');
+    }
+
+    public function authorInfo()
+    {
+        return $this->belongsTo(User::class, 'author');
     }
 }
