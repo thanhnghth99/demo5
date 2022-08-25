@@ -9,8 +9,7 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
-
-
+use App\Http\Controllers\Public\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,13 +26,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('permission', PermissionController::class);
-Route::resource('role', RoleController::class);
-Route::resource('user', UserController::class);
-Route::resource('category', CategoryController::class);
-Route::resource('article', ArticleController::class);
-Route::resource('tag', TagController::class);
+Route::get('/home', [HomeController::class, 'index']);
+Route::get('/category-list/{id}', [HomeController::class, 'category']);
+Route::get('/tag-list/{id}', [HomeController::class, 'tag']);
+Route::get('/article-list/{id}', [HomeController::class, 'single']);
+Route::get('/contact', [HomeController::class, 'contact']);
 
+Route::middleware(['auth'])->group(function() {
+    Route::resource('permission', PermissionController::class);
+    Route::resource('role', RoleController::class);
+    Route::resource('user', UserController::class);
+    Route::resource('category', CategoryController::class);
+    Route::resource('article', ArticleController::class);
+    Route::resource('tag', TagController::class);
+});
 
 Route::middleware([
     'auth:sanctum',

@@ -22,7 +22,7 @@
                         @yield('content')
                     </div>
                     
-                    <table class="w-full border">
+                    <table class="w-full border" id="table">
                         <thead>
                             <tr class="bg-gray-200 border-b">
                                 <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D]">
@@ -93,6 +93,18 @@
                     <div class="mt-5 ">
                         {{ $roles->links('vendor.pagination.tailwind') }}
                     </div>
+                    <x-slot name="scripts">
+                        <script>
+                            $(document).ready(function () {
+                                $('#table').DataTable({
+                                    "pagingType": "input",
+                                    paging: false,
+                                    info: false,
+                                    "searching": false,
+                                });
+                            });
+                        </script>
+                    </x-slot>
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Article;
 use App\Models\Permission;
 use App\Models\User;
 use App\Policies\UserPolicy;
@@ -46,6 +47,11 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('can_do', function(User $user, $permissionName)
         {
             return $user->hasPermission($permissionName);
+        });
+
+        Gate::define('article-owner', function (User $user, Article $article)
+        {
+            return $user->id == $article->author;
         });
     }
 }

@@ -22,7 +22,7 @@ class PermissionController extends Controller
     public function index(Permission $permissions)
     {
         $this->authorize('can_do', ['permission read']);
-        $permissions = $permissions->latest()->paginate(10);
+        $permissions = $permissions->paginate(10);
         return view('admin.permission.index', compact('permissions'));
     }
 

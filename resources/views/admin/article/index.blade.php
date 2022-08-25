@@ -11,6 +11,16 @@
             <div class="d-print-none with-border mb-8">
                 <a href="{{ route('article.create') }}"
                     class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-base px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">{{ __('Add article') }}</a>
+
+                <div class="mx-auto max-w-md float-right">
+                    <form action="" class="relative mx-auto w-max">
+                        <input type="search" name="search" 
+                            class="peer cursor-pointer relative z-10 h-12 w-12 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-gray-400 focus:pl-16 focus:pr-4" />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-gray-500 px-3.5 peer-focus:border-gray-400 peer-focus:stroke-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </form>
+                </div>
             </div>
 
             <div class="table w-full p-2">
@@ -18,96 +28,59 @@
                     @include('message')
                     @yield('content')
                 </div>
-
-                <table class="w-full border">
+                <table class="w-full border" id="table">
                     <thead>
                         <tr class="bg-gray-200 border-b">
-                            <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D]">
+                            <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D] w-10">
                                 <div class="flex items-center justify-center">
                                     ID
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-                                    </svg>
                                 </div>
                             </th>
-                            <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D]">
+                            <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D] w-32">
                                 <div class="flex items-center justify-center">
                                     Article name
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-                                    </svg>
                                 </div>
                             </th>
-                            <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D]">
+                            <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D] w-24">
                                 <div class="flex items-center justify-center">
                                     Author
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-                                    </svg>
                                 </div>
                             </th>                            
-                            <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D]">
-                                <div class="flex items-center justify-center">
-                                    Content
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-                                    </svg>
-                                </div>
-                            </th>
-                            <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D]">
+                            <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D] w-32">
                                 <div class="flex items-center justify-center">
                                     Image
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-                                    </svg>
                                 </div>
                             </th>
-                            <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D]">
+                            <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D] w-24">
                                 <div class="flex items-center justify-center">
                                     Status
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-                                    </svg>
                                 </div>
                             </th>
-                            <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D]">
+                            <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D] w-32">
                                 <div class="flex items-center justify-center">
                                     Created at
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-                                    </svg>
                                 </div>
                             </th>
-                            <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D]">
+                            <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D] w-32">
                                 <div class="flex items-center justify-center">
                                     Updated at
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-                                    </svg>
                                 </div>
                             </th>
-                            <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D]">
+                            <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D] w-36">
                                 <div class="flex items-center justify-center">
                                     Action
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-                                    </svg>
                                 </div>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($articles as $article)
+                        @if(Gate::check('article-owner', $article))
                         <tr class="bg-gray-20 text-center border-b text-base text-gray-600">
                             <td class="p-2 border-r">{{$article->id}}</td>
                             <td class="p-2 border-r">{{$article->name}}</td>
                             <td class="p-2 border-r">{{$article->authorInfo->name}}</td>
-                            <td class="p-2 border-r">
-                                <?php
-                                    echo $article->content;
-                                ?>
-                            </td>
-                            <td class="p-2 border-r">
+                            <td class="p-2 border-r flex items-center justify-center">
                                 <img src="{{ asset('images/'.$article->image) }}" width=100px/>
                             </td>
                             <td class="p-2 border-r">
@@ -136,12 +109,25 @@
                                 </form>
                             </td>
                         </tr>
+                        @endif
                         @endforeach
                     </tbody>
                 </table>
                 <div class="mt-5 ">
                     {{ $articles->links('vendor.pagination.tailwind') }}
                 </div>
+                <x-slot name="scripts">
+                    <script>
+                        $(document).ready(function () {
+                            $('#table').DataTable({
+                                "pagingType": "input",
+                                paging: false,
+                                info: false,
+                                "searching": false,
+                            });
+                        });
+                    </script>
+                </x-slot>
             </div>
         </div>
     </div>

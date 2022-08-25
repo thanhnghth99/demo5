@@ -28,19 +28,9 @@
                     />
                 </div>
                 
-                <div class="flex">
-                    <div>
-                        <label
-                            for="name"
-                            class="mb-3 block text-xl font-medium text-[#07074D]"
-                            >
-                            Tags
-                        </label>
-                    </div>
-                </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="mb-3 block text-xl font-medium text-[#07074D]">Tag status</label>
-                    <select name="status" id="cars" style="height: 50px" value="{{ $tags->status }}"
+                    <select name="status" id="cars" value="{{ $tags->status }}"
                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                         <option
                             <?php

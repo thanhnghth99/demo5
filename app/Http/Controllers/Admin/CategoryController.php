@@ -11,7 +11,7 @@ class CategoryController extends Controller
 {
     public function index(Category $category)
     {
-        $categories = $category->latest()->paginate(5);
+        $categories = $category->paginate(10);
         return view('admin.category.index', compact('categories'));
     }
 

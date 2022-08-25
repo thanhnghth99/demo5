@@ -25,7 +25,7 @@ class roleController extends Controller
     public function index(Role $roles)
     {
         $this->authorize('can_do', ['role read']);
-        $roles = $roles->latest()->paginate(5);
+        $roles = $roles->paginate(10);
         return view('admin.role.index', compact('roles'));
     }
 
