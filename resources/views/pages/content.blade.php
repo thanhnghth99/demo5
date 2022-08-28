@@ -11,10 +11,10 @@
                         <div class="overlay">
                             <div class="mb-2">
                                 <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                    href="/category-list/{{ $article->categories[0]->id }}">{{ $article->categories[0]->name }}</a><br>
+                                href="{{ route('public.category', $article->categories[0]->id) }}">{{ $article->categories[0]->name }}</a><br>
                                 <a class="text-white" href="">{{ $article->updated_at }}</a>
                             </div>
-                            <a class="h2 m-0 text-white text-uppercase font-weight-bold" href="/article-list/{{ $article->id }}">{{ $article->name }}</a>
+                            <a class="h2 m-0 text-white text-uppercase font-weight-bold" href="{{ route('public.article', $article->id) }}">{{ $article->name }}</a>
                         </div>
                     </div>
                 @endforeach
@@ -29,10 +29,10 @@
                             <div class="overlay">
                                 <div class="mb-2">
                                     <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                        href="/category-list/{{ $article->categories[0]->id }}">{{ $article->categories[0]->name }}</a><br>
+                                    href="{{ route('public.category', $article->categories[0]->id) }}">{{ $article->categories[0]->name }}</a><br>
                                     <a class="text-white" href=""><small>{{ $article->updated_at }}</small></a>
                                 </div>
-                                <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" href="/article-list/{{ $article->id }}">{{ $article->name }}</a>
+                                <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" href="{{ route('public.article', $article->id) }}">{{ $article->name }}</a>
                             </div>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                     <div class="owl-carousel tranding-carousel position-relative d-inline-flex align-items-center ml-3"
                         style="width: calc(100% - 170px); padding-right: 90px;">
                         @foreach($articles as $article)
-                            <div class="text-truncate"><a class="text-white text-uppercase font-weight-semi-bold" href="/article-list/{{ $article->id }}">{{ $article->name }}</a></div>
+                            <div class="text-truncate"><a class="text-white text-uppercase font-weight-semi-bold" href="{{ route('public.article', $article->id) }}">{{ $article->name }}</a></div>
                         @endforeach
                     </div>
                 </div>
@@ -213,42 +213,9 @@
             </div>
             
             <div class="col-lg-4">
-                <!-- Tags Start -->
-                <div class="mb-3">
-                    <div class="section-title mb-0">
-                        <h4 class="m-0 text-uppercase font-weight-bold">Tags</h4>
-                    </div>
-                    <div class="bg-white border border-top-0 p-3">
-                        <div class="d-flex flex-wrap m-n1">
-                            @foreach($tags as $tag)
-                                <a href="/tag-list/{{ $tag->id }}" class="btn btn-sm btn-outline-secondary m-1">{{ $tag->name }}</a>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                <!-- Tags End -->
+                <x-pages.tag-slider/>
 
-                <!-- Popular News Start -->
-                <div class="mb-3">
-                    <div class="section-title mb-0">
-                        <h4 class="m-0 text-uppercase font-weight-bold">Latest News</h4>
-                    </div>
-                    <div class="bg-white border border-top-0 p-3">
-                    @foreach($articles as $article)
-                        <div class="d-flex align-items-center bg-white mb-3" style="height: 110px;">
-                            <img class="img-fluid" src="{{ asset('images/'.$article->image) }}" alt="">
-                            <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
-                                <div class="mb-2">
-                                    <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">article category</a><br>
-                                    <a class="text-body" href=""><small>{{ $article->updated_at }}</small></a>
-                                </div>
-                                <a class="h6 m-0 text-secondary text-uppercase font-weight-bold article-right-side" href="/article-list/{{ $article->id }}">{{ $article->name }}</a>
-                            </div>
-                        </div>
-                    @endforeach
-                    </div>
-                </div>
-                <!-- Popular News End -->
+                <x-pages.news-slider/>
 
                 @include('pages.social-media')
 

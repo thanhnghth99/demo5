@@ -61,18 +61,17 @@
                     <select name="status" id="cars" value=" {{$articles->status}} "
                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                             <option
-                            <?php
-                                if ($articles->status == 1)
-                                    echo "selected";
-                            ?>
-                            value="1">Enable</option>
+                                @if ($articles->status == 1)
+                                    selected
+                                @endif
+                                value="1">Enable
+                            </option>
                             <option
-                            <?php
-                                if ($articles->status == 0)
-                                    echo "selected";
-                            ?>
-                            value="0">Disable
-                        </option>
+                                @if ($articles->status == 0)
+                                    selected
+                                @endif
+                                value="0">Disable
+                            </option>
                     </select>
                 </div>
                 <div>

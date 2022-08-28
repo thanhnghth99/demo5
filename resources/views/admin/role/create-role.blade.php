@@ -10,20 +10,8 @@
         <div class="mx-auto w-full max-w-[550px]">
             <form action="{{ route('role.store') }}" method="POST" enctype="multipart/form-data">
                 {{csrf_field()}}
-                <div class="mb-5">
-                    <label
-                        for="name"
-                        class="mb-3 block text-xl font-medium text-[#07074D]"
-                        >
-                        Role name
-                    </label>
-                    <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        placeholder="Role name"
-                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                    />
+                <div>
+                    <x-forms.input label="Role name" name="name" id="name" placeholder="Role name"/>
                 </div>
                 <div class="mb-5">
                     <div>
@@ -33,19 +21,12 @@
                             >
                             Permissions
                         </label>
-                        <div>
-                            @foreach($permissions as $permission)
-                            <div class="mt-2">
-                                <input type="checkbox" class="rounded-md border border-[#e0e0e0] bg-white px-2 py-2" id="permission" name="permission[]" value="{{$permission->id}}"/>
-                                <label for="permission" class="mb-3 text-xm font-medium text-[#07074D]">{{ $permission->name }}</label><br>
-                            </div>
-                            @endforeach
-                        </div>
-                        <div class="mt-2 mb-2">
+                        <x-forms.checkbox-list id="permission" name="permission[]" :items="$permissions"/>
+                        <div class="mt-2">
                             <a href="{{ route('permission.create') }}" class="w-full rounded-md border border-[#07074D] bg-white px-1 mb-3 text-xm font-medium text-[#07074D]">+ Add permission</a>
                         </div>
                     </div>
-                </div>
+                </div> 
                 <div class="mb-5">
                     <label for="exampleInputEmail1" class="mb-3 block text-xl font-medium text-[#07074D]">Role status</label>
                     <select name="status" id="cars" 

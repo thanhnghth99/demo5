@@ -10,20 +10,8 @@
         <div class="mx-auto w-full max-w-[550px]">
             <form action="{{ route('tag.store') }}" method="POST">
                 {{csrf_field()}}
-                <div class="mb-5">
-                    <label
-                        for="name"
-                        class="mb-3 block text-xl font-medium text-[#07074D]"
-                        >
-                        Tag name
-                    </label>
-                    <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        placeholder="Tag name"
-                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                    />
+                <div>
+                    <x-forms.input label="Tag name" name="name" id="name" placeholder="Tag name"/>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="mb-3 block text-xl font-medium text-[#07074D]">Tag status</label>

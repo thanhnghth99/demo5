@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\UserService;
 
 class UserController extends Controller
 {
@@ -23,10 +26,11 @@ class UserController extends Controller
     //     $this->middleware('can:user delete', ['only' => ['destroy']]);
     // }
 
-    public function index(User $users)
+    public function index(UserService $userService, Request $request)
     {
         $this->authorize('can_do', ['user read']);
-        $users = $users->paginate(10);
+        $filter = $request->query();
+        $users = $userService->getList($filter);
         return view('admin.user.index', compact('users'));
     }
 
@@ -38,30 +42,14 @@ class UserController extends Controller
         return view('admin.user.create-user', ['roles' => $roles]);
     }
 
-    public function store(Request $request, User $user)
+    public function store(StoreUserRequest $request, UserService $userService)
     {
         date_default_timezone_set('asia/ho_chi_minh');
-        $data = $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-            'password' => 'required',
-            'status' => 'required',
-            'role' => 'nullable|array',
-        ]);
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'address' => $request->address,
-            'password' => Hash::make($request->password),
-            'status' => $request->status,
-            'role' => $request->role,
-        ]);
-
-        $user->roles()->sync($data['role']);
+        $user = $userService->create($request->validated());
+        if(is_null($user))
+        {
+            return back()->with('error', 'Failed create.');
+        }
 
         return redirect('/user')
             ->with('success', 'Successfully created.');
@@ -72,33 +60,22 @@ class UserController extends Controller
         $this->authorize('can_do', ['user edit']);
         $users = $user->find($user->id);
         $roles = $role->all();
-        $dataRoles = $users->roles()->get();
+        $dataRoles = $users->roles->pluck('id')->toArray();
         return view('admin.user.edit-user',['users' => $users, 'roles' => $roles, 'dataRoles' => $dataRoles]);
     }    
 
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, UserService $userService, User $user)
     {
         date_default_timezone_set('asia/ho_chi_minh');
-        
-        $data = $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-            'role' => 'nullable|array'
-        ]);
-        
-        $user->fill($data)->save();
-        $user->roles()->sync($data['role']);
+        $userService->update($request->validated(), $user);     
 
         return redirect('/user')
             ->with('success', 'Successfully updated.');
     }
 
-    public function destroy(User $user)
+    public function destroy(User $user, UserService $userService)
     {
-        $this->authorize('can_do', ['user delete']);
-        $user->delete();
+        $userService->delete($user);
         return redirect('/user')
             ->with('success', 'Successfully deleted.');
     } 

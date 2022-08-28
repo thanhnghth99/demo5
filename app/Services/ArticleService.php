@@ -38,7 +38,7 @@ class ArticleService
 
             DB::commit();
 
-            return $data;
+            return $article;
         } catch (\Exception $err) {
             DB::rollBack();
             Log::error($err->getMessage());
@@ -77,7 +77,7 @@ class ArticleService
 
             DB::commit();
 
-            return $data;
+            return $article;
         } catch (\Exception $err) {
             DB::rollBack();
             Log::error($err->getMessage());
@@ -89,6 +89,7 @@ class ArticleService
     public function delete(Article $article)
     {
         $article->tags()->detach();
+        $article->categories()->detach();
         $article->delete();
     }
 

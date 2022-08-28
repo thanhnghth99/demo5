@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreTagRequest;
+use App\Http\Requests\UpdateTagRequest;
 use App\Models\Tag;
+use App\Services\TagService;
 
 class TagController extends Controller
 {
-    public function index(Tag $tags)
+    public function index(TagService $tagService, Request $request)
     {
-        $tags = $tags->paginate(10);
+        $filter = $request->query();
+        $tags = $tagService->getList($filter);
         return view('admin.tag.index', compact('tags'));
     }
 
@@ -20,15 +24,15 @@ class TagController extends Controller
         return view('admin.tag.create-tag');
     }
 
-    public function store(Request $request)
+    public function store(StoreTagRequest $request, TagService $tagService)
     {
         date_default_timezone_set('asia/ho_chi_minh');
-        $data = $request->validate([
-            'name' => 'required',
-            'status' => 'required',
-        ]);
-
-        Tag::create($data);
+        $tag = $tagService->create($request->validated());
+        if(is_null($tag))
+        {
+            return back()->with('error', 'Failed create.');
+        }
+        
         return redirect('/tag')
             ->with('success', 'Successfully created.');
     }
@@ -39,22 +43,18 @@ class TagController extends Controller
         return view('admin.tag.edit-tag',['tags' => $tags]);
     }    
 
-    public function update(Request $request, Tag $tag)
+    public function update(UpdateTagRequest $request, Tag $tag, TagService $tagService)
     {
         date_default_timezone_set('asia/ho_chi_minh');
-        $data = $request->validate([
-            'name' => 'required',
-            'status' => 'required',
-        ]);
+        $tagService->update($request->validated(), $tag);
 
-        $tag->fill($data)->save();
         return redirect('/tag')
             ->with('success', 'Successfully updated.');
     }
 
-    public function destroy(Tag $tag)
+    public function destroy(Tag $tag, TagService $tagService)
     {
-        $tag->delete();
+        $tagService->delete($tag);
         return redirect('/tag')
             ->with('success', 'Successfully deleted.');
     } 

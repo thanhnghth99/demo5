@@ -32,32 +32,15 @@
                 <x-jet-input id="address" class="block mt-1 w-full" type="text" name="address" value="{{ $users->address }}" required autofocus autocomplete="address" />
             </div>
 
-            <div class="mt-4">
+            <div class="mb-5">
                 <div>
-                    <x-jet-label for="name" value="{{ __('Roles') }}" />
-                    
-                    <div>
-                        @foreach($roles as $role)
-                        <div class="mt-2">
-                            <input                                 
-                                <?php
-                                foreach ($dataRoles as $dataRole)
-                                {
-                                    if ($role->id == $dataRole->id)
-                                        echo "checked";
-                                }
-                                ?>
-                                type="checkbox" class="rounded-md border border-[#e0e0e0] bg-white px-1 py-1" id="role" name="role[]" value="{{$role->id}}"/>
-                            <label for="role" class="mb-3 text-xm font-medium text-[#07074D]">{{ $role->name }}</label><br>
-                        </div>
-                        @endforeach                       
-                    </div>
-
+                    <x-jet-label for="name" value="Roles" />
+                    <x-forms.checkbox-list id="role" name="role[]" :items="$roles" :selected="$dataRoles"/>
                     <div class="mt-2">
                         <a href="{{ route('role.create') }}" class="w-full rounded-md border border-[#07074D] bg-white px-1 mb-3 text-xm font-medium text-[#07074D]">+ Add role</a>
                     </div>
                 </div>
-            </div>
+            </div> 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">
                     <x-jet-label for="terms">

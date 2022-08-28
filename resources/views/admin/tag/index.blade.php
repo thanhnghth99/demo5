@@ -11,6 +11,16 @@
             <div class="d-print-none with-border mb-8">
                 <a href="{{ route('tag.create') }}"
                     class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-base px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">{{ __('Add tag') }}</a>
+
+                <div class="mx-auto max-w-md float-right">
+                    <form action="" class="relative mx-auto w-max">
+                        <input type="search" name="search" 
+                            class="peer cursor-pointer relative z-10 h-12 w-12 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-gray-400 focus:pl-16 focus:pr-4" />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-gray-500 px-3.5 peer-focus:border-gray-400 peer-focus:stroke-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </form>
+                </div>  
             </div>
 
             <div class="table w-full p-2">
@@ -25,25 +35,16 @@
                             <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D]">
                                 <div class="flex items-center justify-center">
                                     Tag name
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-                                    </svg>
                                 </div>
                             </th>
                             <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D]">
                                 <div class="flex items-center justify-center">
                                     Status
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-                                    </svg>
                                 </div>
                             </th>
                             <th class="p-2 border-r cursor-pointer text-sl font-medium text-[#07074D]">
                                 <div class="flex items-center justify-center">
                                     Action
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-                                    </svg>
                                 </div>
                             </th>
                         </tr>
@@ -53,12 +54,11 @@
                         <tr class="bg-gray-20 text-center border-b text-base text-gray-600">
                             <td class="p-2 border-r">{{$tag->name}}</td>
                             <td class="p-2 border-r">
-                                <?php
-                                    if ($tag['status'] == 0)
-                                        echo "Disable";
-                                    else
-                                        echo "Enable";
-                                ?>
+                                @if ($tag['status'] == 0)
+                                    Disable
+                                @else
+                                    Enable
+                                @endif
                             </td>
                             <td>
                                 <form action="{{ route('tag.destroy', $tag->id) }}"

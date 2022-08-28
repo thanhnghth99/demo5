@@ -20,7 +20,7 @@
         <div class="col-lg-3 col-md-6 mb-5">
             <h5 class="mb-4 text-white text-uppercase font-weight-bold">Categories</h5>
             <div class="m-n1">
-                @foreach($categories as $category)
+                @foreach($getCategory() as $category)
                     <a href="" class="btn btn-sm btn-secondary m-1">{{ $category->name }}</a>
                 @endforeach
             </div>

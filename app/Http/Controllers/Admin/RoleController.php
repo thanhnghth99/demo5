@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreRoleRequest;
+use App\Http\Requests\UpdateRoleRequest;
 use App\Models\Role;
 use App\Models\Permission;
+use App\Services\RoleService;
 
 class roleController extends Controller
 {
@@ -22,10 +25,11 @@ class roleController extends Controller
     //     $this->middleware('can:role delete', ['only' => ['destroy']]);
     // }
 
-    public function index(Role $roles)
+    public function index(RoleService $roleService, Request $request)
     {
         $this->authorize('can_do', ['role read']);
-        $roles = $roles->paginate(10);
+        $filter = $request->query();
+        $roles = $roleService->getList($filter);
         return view('admin.role.index', compact('roles'));
     }
 
@@ -37,17 +41,15 @@ class roleController extends Controller
         return view('admin.role.create-role', ['permissions' => $permissions]);
     }
 
-    public function store(Request $request, Role $role)
+    public function store(StoreRoleRequest $request, RoleService $roleService)
     {
         date_default_timezone_set('asia/ho_chi_minh');
-        $data = $request->validate([
-            'name' => 'required',
-            'status' => 'required',
-            'permission' => 'nullable|array',
-        ]);
+        $role = $roleService->create($request->validated());
+        if(is_null($role))
+        {
+            return back()->with('error', 'Failed create.');
+        }
 
-        $role = Role::create($data);
-        $role->permissions()->sync($data['permission']);
         return redirect('/role')
             ->with('success', 'Successfully created.');
     }
@@ -57,31 +59,25 @@ class roleController extends Controller
         $this->authorize('can_do', ['role edit']);
         $roles = $role->find($role->id);
         $permissions = $permission->all();
-        $dataPermissions = $roles->permissions()->get();
+        $dataPermissions = $roles->permissions->pluck('id')->toArray();
 
         return view('admin.role.edit-role',['roles' => $roles, 'permissions' => $permissions, 'dataPermissions' => $dataPermissions]);
     }    
 
-    public function update(Request $request, Role $role)
+    public function update(UpdateRoleRequest $request, Role $role, RoleService $roleService)
     {
         date_default_timezone_set('asia/ho_chi_minh');
-        $data = $request->validate([
-            'name' => 'required',
-            'status' => 'required',
-            'permission' => 'nullable|array',
-        ]);
 
-        $role->fill($data)->save();
-        $role->permissions()->sync($data['permission']);
+        $roleService->update($request->validated(), $role);
         
         return redirect('/role')
             ->with('success', 'Successfully updated.');
     }
 
-    public function destroy(Role $role)
+    public function destroy(Role $role, RoleService $roleService)
     {
         $this->authorize('can_do', ['role delete']);
-        $role->delete();
+        $roleService->delete($role);
         return redirect('/role')
             ->with('success', 'Successfully deleted.');
     } 

@@ -10,13 +10,17 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
+use App\Support\Trait\HasSearch;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
+    use HasSearch;
     use Notifiable;
+    use SoftDeletes;
     use TwoFactorAuthenticatable;
 
     const USER_ADMIN = 1;

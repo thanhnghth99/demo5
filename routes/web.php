@@ -26,13 +26,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', [HomeController::class, 'index']);
-Route::get('/category-list/{id}', [HomeController::class, 'category']);
-Route::get('/tag-list/{id}', [HomeController::class, 'tag']);
-Route::get('/article-list/{id}', [HomeController::class, 'single']);
-Route::get('/contact', [HomeController::class, 'contact']);
+Route::controller(HomeController::class)
+    ->name('public.')
+    ->group(function () {
+        Route::get('/home', 'index')->name('home');
+        Route::get('/category-list/{id}', 'category')->name('category');
+        Route::get('/tag-list/{id}', 'tag')->name('tag');
+        Route::get('/article-list/{id}', 'single')->name('article');
+        Route::get('/contact', 'contact')->name('contact');
+        Route::get('/search', 'search')->name('search');
+    });
 
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth'])->group(function () {
     Route::resource('permission', PermissionController::class);
     Route::resource('role', RoleController::class);
     Route::resource('user', UserController::class);

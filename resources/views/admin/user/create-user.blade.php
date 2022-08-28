@@ -51,22 +51,15 @@
                 </select>
             </div>
 
-            <div class="mt-4">
+            <div class="mb-5">
                 <div>
-                    <x-jet-label for="name" value="{{ __('Roles') }}" />
-                    
-                    @foreach($roles as $role)
-                    <div class="mt-2">
-                        <x-jet-input type="checkbox" class="rounded-md border border-[#e0e0e0] bg-white px-1 py-1" id="role" name="role[]" value="{{$role->id}}"/>
-                        <label for="role" class="mb-3 text-xm font-medium text-[#07074D]">{{ $role->name }}</label><br>
-                    </div>
-                    @endforeach
-
+                    <x-jet-label for="name" value="Roles" />
+                    <x-forms.checkbox-list id="role" name="role[]" :items="$roles"/>
                     <div class="mt-2">
                         <a href="{{ route('role.create') }}" class="w-full rounded-md border border-[#07074D] bg-white px-1 mb-3 text-xm font-medium text-[#07074D]">+ Add role</a>
                     </div>
                 </div>
-            </div>
+            </div> 
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">
