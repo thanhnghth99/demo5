@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
+use App\Support\Trait\HasPagination;
 use App\Support\Trait\HasSearch;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -17,6 +18,7 @@ class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
+    use HasPagination;
     use HasProfilePhoto;
     use HasSearch;
     use Notifiable;
@@ -34,8 +36,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'phone',
-        'address',
+        // 'phone',
+        // 'address',
         'password',
     ];
 

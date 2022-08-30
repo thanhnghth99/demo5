@@ -29,7 +29,10 @@ class UserController extends Controller
     public function index(UserService $userService, Request $request)
     {
         $this->authorize('can_do', ['user read']);
-        $filter = $request->query();
+        $filter = [
+            ...$request->query(),
+            'paginate' => 10,
+        ];
         $users = $userService->getList($filter);
         return view('admin.user.index', compact('users'));
     }

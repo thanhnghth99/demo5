@@ -497,6 +497,14 @@ mark,
   font-size: x-small;
 }
 
+.article-text-name {
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 .list-unstyled {
   padding-left: 0;
   list-style: none;

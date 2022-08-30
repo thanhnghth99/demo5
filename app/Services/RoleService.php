@@ -17,7 +17,7 @@ class RoleService
             ->select("{$roleTable}.*")
             ->search($filter, ['roles.name']);
         
-        return $query->paginate(10)->withQueryString();
+        return $query->orderBy('name')->getPaginate($filter);
     }
 
     public function create($data)

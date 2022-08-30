@@ -19,7 +19,7 @@ class TagSlider extends Component
 
     public function getTag()
     {
-        return Tag::latest()->limit(10)->get();
+        return Tag::orderBy('created_at', 'desc')->take(10)->get();
     }
 
     /**

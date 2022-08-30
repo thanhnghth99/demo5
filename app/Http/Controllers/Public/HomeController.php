@@ -14,8 +14,9 @@ class HomeController extends Controller
     public function index()
     {
         $articles = Article::where('status', Article::STATUS_ENABLE)->latest()->limit(4)->get();
+        $otherArticles = Article::where('status', Article::STATUS_ENABLE)->latest()->skip(4)->take(10)->get();
 
-        return view('pages.content', compact('articles'));
+        return view('pages.content', compact('articles', 'otherArticles'));
     }
 
     public function category($id)
@@ -23,7 +24,7 @@ class HomeController extends Controller
         $category = Category::find($id);
 
         $dataArticles = $category->articles()->where('status', Article::STATUS_ENABLE)->get();
-        $dataTags = $category->tags()->get();
+        $dataTags = $category->tags()->orderBy('name')->get();
 
         return view('pages.category', compact('category', 'dataArticles', 'dataTags'));
     }
@@ -42,7 +43,7 @@ class HomeController extends Controller
     {
         $article = Article::find($id);
         
-        $dataTags = $article->tags()->get();
+        $dataTags = $article->tags()->orderBy('name')->get();
         
         return view('pages.single', compact('article', 'dataTags'));
     }
@@ -54,8 +55,10 @@ class HomeController extends Controller
 
     public function search(ArticleService $articleService, Request $request)
     {
-        $filter = $request->query();
-        
+        $filter = [
+            ...$request->query(),
+            'paginate' => 10,
+        ];
         $dataArticles = $articleService->getList($filter);
         
         return view('pages.search', compact('dataArticles'))->with('searchKeyword', $filter['search'] ?? '');

@@ -13,7 +13,10 @@ class TagController extends Controller
 {
     public function index(TagService $tagService, Request $request)
     {
-        $filter = $request->query();
+        $filter = [
+            ...$request->query(),
+            'paginate' => 10,
+        ];
         $tags = $tagService->getList($filter);
         return view('admin.tag.index', compact('tags'));
     }

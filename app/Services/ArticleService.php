@@ -17,9 +17,10 @@ class ArticleService
         $articleTable = $article->getTable();
         $query = $article->join('users', 'users.id', '=', "{$articleTable}.author")
             ->select("{$articleTable}.*")
+            ->filter($filter)
             ->search($filter, ['articles.name', 'users.name']);
         
-        return $query->paginate(10)->withQueryString();
+        return $query->getPaginate($filter);
     }
 
     public function create($data)

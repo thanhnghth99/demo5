@@ -18,8 +18,8 @@ class UserSeeder extends Seeder
         User::insert([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
-            'phone' => '123',
-            'address' => 'admin',
+            // 'phone' => '123',
+            // 'address' => 'admin',
             'usertype' => User::USER_ADMIN,
             'password' => bcrypt('admin123'),
             'status' => 1,

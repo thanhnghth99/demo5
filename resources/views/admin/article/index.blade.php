@@ -75,7 +75,6 @@
                     </thead>
                     <tbody>
                         @foreach($articles as $article)
-                        @if(Gate::check('article-owner', $article))
                         <tr class="bg-gray-20 text-center border-b text-base text-gray-600">
                             <td class="p-2 border-r">{{$article->id}}</td>
                             <td class="p-2 border-r">{{$article->name}}</td>
@@ -108,7 +107,6 @@
                                 </form>
                             </td>
                         </tr>
-                        @endif
                         @endforeach
                     </tbody>
                 </table>

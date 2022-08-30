@@ -17,7 +17,7 @@ class CategoryService
             ->select("{$categoryTable}.*")
             ->search($filter, ['categories.name']);
         
-        return $query->paginate(10)->withQueryString();
+        return $query->orderBy('name')->getPaginate($filter);
     }
 
     public function create($data)

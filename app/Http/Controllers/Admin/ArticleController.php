@@ -17,7 +17,24 @@ class ArticleController extends Controller
 {
     public function index(ArticleService $articleService, Request $request)
     {
-        $filter = $request->query();
+        if(auth()->user()->usertype)
+        {
+            $filter = [
+                ...$request->query(),
+                'paginate' => 10,
+            ];
+        }
+        else
+        {
+            $filter = [
+                ...$request->query(),
+                'paginate' => 10,
+                'filter' => [
+                    ...$request->query('filter', []),
+                    'author' => auth()->id(),
+                ]
+            ];
+        }
         $articles = $articleService->getList($filter);
         return view('admin.article.index', compact('articles'));
     }

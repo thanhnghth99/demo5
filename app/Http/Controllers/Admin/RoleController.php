@@ -28,7 +28,10 @@ class roleController extends Controller
     public function index(RoleService $roleService, Request $request)
     {
         $this->authorize('can_do', ['role read']);
-        $filter = $request->query();
+        $filter = [
+            ...$request->query(),
+            'paginate' => 10,
+        ];
         $roles = $roleService->getList($filter);
         return view('admin.role.index', compact('roles'));
     }

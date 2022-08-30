@@ -11,7 +11,7 @@
             <form action="{{ route('article.store') }}" method="POST" enctype="multipart/form-data">
                 {{csrf_field()}}
                 <div>
-                    <x-forms.input label="Article name" name="name" id="name" placeholder="Article name"/>
+                    <x-forms.input label="Article name" name="name" id="name" placeholder="Article name" required/>
                 </div>
                 <div class="mb-5">
                     <label
@@ -23,7 +23,7 @@
                     <textarea name="content" id="content"></textarea>
                 </div>
                 <div class="mb-5">
-                    <x-forms.input label="Image" name="image" id="image" type="file" multiple/>
+                    <x-forms.input label="Image" name="image" id="image" type="file" multiple required/>
                     <p class="w-full text-base text-[#6B7280]" id="image">SVG, PNG, JPG or GIF</p>
                     <img id="img-preview" class="w-24">
                 </div>

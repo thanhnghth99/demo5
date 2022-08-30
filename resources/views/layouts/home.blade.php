@@ -42,23 +42,26 @@
                             <a class="nav-link text-body small" href="{{ route('public.contact') }}">Contact</a>
                         </li>
                         <!-- @if (Route::has('login'))
-                            @auth
-                                <li class="nav-item border-right border-secondary" method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <a class="nav-link text-body small" href="{{ route('logout') }}" 
-                                        @click.prevent="$root.submit();" method="POST" action="{{ route('logout') }}">Logout</a>
-                                </li> 
-                            @else
-                                <li class="nav-item border-right border-secondary">
-                                    <a class="nav-link text-body small" href="{{ route('login') }}">Login</a>
-                                </li>    
+                        @auth
+                        <li class="nav-item border-right border-secondary">
+                            <form @click.prevent="$root.submit();" method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a class="nav-link text-body small" href="{{ route('logout') }}">
+                                    Logout
+                                </a>
+                            </form>
+                        </li>
+                        @else
+                        <li class="nav-item border-right border-secondary">
+                            <a class="nav-link text-body small" href="{{ route('login') }}" target="_blank">Login</a>
+                        </li>
 
-                                @if (Route::has('register'))
-                                    <li class="nav-item">
-                                        <a class="nav-link text-body small" href="{{ route('register') }}">Register</a>
-                                    </li>
-                                @endif
-                            @endauth
+                            @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link text-body small" href="{{ route('register') }}" target="_blank">Register</a>
+                            </li>
+                            @endif
+                        @endauth
                         @endif -->
                     </ul>
                 </nav>
@@ -95,11 +98,11 @@
     </div>
     <!-- Topbar End -->
 
-    <x-pages.navigation/>
+    <x-pages.navigation />
 
     @yield('content')
 
-    <x-pages.footer/>
+    <x-pages.footer />
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-primary btn-square back-to-top"><i class="fa fa-arrow-up"></i></a>

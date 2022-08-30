@@ -14,7 +14,10 @@ class CategoryController extends Controller
 {
     public function index(CategoryService $categoryService, Request $request)
     {
-        $filter = $request->query();
+        $filter = [
+            ...$request->query(),
+            'paginate' => 10,
+        ];
         $categories = $categoryService->getList($filter);
         return view('admin.category.index', compact('categories'));
     }
