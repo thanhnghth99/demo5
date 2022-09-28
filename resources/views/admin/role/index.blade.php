@@ -78,7 +78,7 @@
                                     @if(Gate::check('can_do', ['role delete']))
                                         @csrf
                                         @method('DELETE')
-                                        <button class="bg-red-500 p-2 text-white hover:shadow-lg text-base font-medium rounded-lg" onclick="return confirm('Confirm to delete?')">
+                                        <button class="bg-red-500 p-2 text-white hover:shadow-lg text-base font-medium rounded-lg" b>
                                             {{ __('Delete') }}
                                         </button>
                                     @endif

@@ -10,7 +10,7 @@ use App\Models\Role;
 use App\Models\Permission;
 use App\Services\RoleService;
 
-class roleController extends Controller
+class RoleController extends Controller
 {
     // /**
     //  * Display a listing of the resource.

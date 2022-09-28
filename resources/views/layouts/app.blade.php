@@ -32,8 +32,8 @@
             border-collapse: collapse !important;
         }
         .dropdown-menu li:hover {
-    cursor: pointer;
-}
+            cursor: pointer;
+        }
     </style>
 
 </head>

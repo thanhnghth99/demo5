@@ -25,7 +25,7 @@ class CategoryController extends Controller
     public function create(Tag $tag, Category $category)
     {
         $category->all();
-        $tags = $tag->all();
+        $tags = $tag->all()->sortBy('name');
         return view('admin.category.create-category', ['tags' => $tags]);
     }
 
@@ -45,7 +45,7 @@ class CategoryController extends Controller
     public function edit(Category $category, Tag $tag)
     {
         $categories = $category->find($category->id);
-        $tags = $tag->all();
+        $tags = $tag->all()->sortBy('name');
         $dataTags = $categories->tags->pluck('id')->toArray();
         return view('admin.category.edit-category',['categories' => $categories, 'tags' => $tags, 'dataTags' => $dataTags]);
     }    

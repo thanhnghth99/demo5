@@ -42,8 +42,8 @@ class ArticleController extends Controller
     public function create(Tag $tag, Article $article, Category $category)
     {
         $article->all();
-        $tags = $tag->all();
-        $categories = $category->all();
+        $tags = $tag->all()->sortBy('name');
+        $categories = $category->all()->sortBy('name');
         return view('admin.article.create-article', ['tags' => $tags, 'categories' => $categories]);
     }
 
@@ -63,8 +63,8 @@ class ArticleController extends Controller
     public function edit(Article $article, Tag $tag, Category $category)
     {
         $articles = $article->find($article->id);
-        $tags = $tag->all();
-        $categories = $category->all();
+        $tags = $tag->all()->sortBy('name');
+        $categories = $category->all()->sortBy('name');
         $dataTags = $articles->tags->pluck('id')->toArray();
         $dataCategories = $articles->categories->pluck('id')->toArray();
 
